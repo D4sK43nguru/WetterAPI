@@ -6,13 +6,9 @@ import getWeatherData from "../../api/openWeatherMap";
 import {useDebounce} from "../../utils/hooks/useDebounce";
 
 const WetterComponent = () => {
-  const [geoLocation, setGeoLocation] = useState<{ lat: number; lng: number }>({
-    lat: 52.0825322,
-    lng: 7.0150057,
-  });
   const [location, setLocation] = useState("Ahaus");
-  const [language, setLanguage] = useState("de");
   const [weatherData, setWeatherData] = useState<iWeatherApiRealtime>();
+
   const debouncedLocation = useDebounce<string>(location, 100);
 
   const getWetter = () => {
@@ -38,7 +34,7 @@ const WetterComponent = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ marginBottom: "5px" }}>
+      <View style={{ marginBottom: "10px" }}>
         <TextInput
           style={{
             height: 40,
@@ -46,6 +42,7 @@ const WetterComponent = () => {
             borderWidth: 1,
             borderRadius: 500,
             textAlign: "center",
+            marginBottom: 2
           }}
           placeholder={"Hier den Ort eingeben"}
           onChangeText={(newText) => setLocation(newText)}
@@ -71,7 +68,7 @@ const WetterComponent = () => {
           <Text>Temperatur: {weatherData?.current.temp_c}°C</Text>
           <Text>Gefühlt: {weatherData?.current.feelslike_c}°C</Text>
           <Text>Wind: {weatherData?.current.wind_kph} km/h</Text>
-          <Text>Windrichtung: {weatherData?.current.wind_dir}</Text>
+          <Text>Windrichtung: {weatherData?.current.wind_dir} ({weatherData?.current.wind_degree}°)</Text>
         </View>
       )}
       <StatusBar style="auto" />
