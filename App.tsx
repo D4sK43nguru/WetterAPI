@@ -1,56 +1,10 @@
 import {Button, StyleSheet, View} from "react-native";
 import React, {useState} from "react";
 import WetterComponent from "./src/Wetter/Wetter";
-import React from "react";
-import { iWeatherApi } from "./utils/types/weatherApi";
-import getWeatherData, { getGeoCode } from "./api/openWeatherMap";
+// import {Kamera} from "./src/Kamera/kamera";
 
 export default function App() {
   const [mode, setMode] = useState(0);
-    lat: 52.0825322,
-    lng: 7.0150057,
-  });
-  const [location, setLocation] = useState("Ahaus");
-  const [language, setLanguage] = useState("de");
-  const [weatherData, setWeatherData] = useState<iWeatherApi>();
-
-  useEffect(() => {
-    let active = true;
-    fetchData();
-    console.log(location)
-
-    return () => {
-      active = false;
-    };
-    async function fetchData() {
-      const res = await getGeoCode(location);
-      if (!active) {
-        return;
-      }
-      setGeoLocation(res);
-    }
-  }, [location]);
-
-  useEffect(() => {
-    let active = true;
-    fetchData();
-    return () => {
-      active = false;
-    };
-    async function fetchData() {
-      console.log(geoLocation)
-      const res = await getWeatherData(
-        geoLocation.lat,
-        geoLocation.lng,
-        language || "de"
-      );
-      if (!active) {
-        return;
-      }
-      setWeatherData(res);
-    }
-  }, [geoLocation]);
-  const WeatherData = <Text>{weatherData?.visibility}</Text>;
 
   return (
     <>
@@ -68,11 +22,16 @@ export default function App() {
             }}
             title={"Wetter"}
           />
-      <Text>{WeatherData}</Text>
-      <StatusBar style="auto" />
+          {/*<Button*/}
+          {/*  onPress={() => {*/}
+          {/*    setMode(2);*/}
+          {/*  }}*/}
+          {/*  title={"Kamera"}*/}
+          {/*/>*/}
         </View>
       )}
       {mode == 1 && <WetterComponent />}
+      {/*{mode == 2 && <Kamera />}*/}
     </>
   );
 }
