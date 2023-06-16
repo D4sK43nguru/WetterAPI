@@ -30,7 +30,11 @@ const WetterComponent = () => {
       }
       setWeatherData(res);
     }
-  }, [debouncedLocation]);
+  };
+
+  useEffect(() => {
+    getWetter();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -46,8 +50,9 @@ const WetterComponent = () => {
           placeholder={"Hier den Ort eingeben"}
           onChangeText={(newText) => setLocation(newText)}
           defaultValue={location}
+          onSubmitEditing={getWetter}
         />
-        <Button title="Suche ausführen" />
+        <Button title="Suche ausführen" onPress={getWetter} />
       </View>
       {weatherData && (
         <View
@@ -59,13 +64,13 @@ const WetterComponent = () => {
           }}
         >
           <Image
-            source={{uri: `https:${weatherData?.current.condition.icon}`}}
+            source={{ uri: `https:${weatherData?.current.condition.icon}` }}
             style={styles.icon}
           />
-          <Text>Sichtbarkeit: {weatherData?.current.vis_km}</Text>
-          <Text>Temperatur: {weatherData?.current.temp_c}</Text>
-          <Text>Gefühlt: {weatherData?.current.feelslike_c}</Text>
-          <Text>Wind: {weatherData?.current.wind_kph}km/h</Text>
+          <Text>Sichtbarkeit: {weatherData?.current.vis_km} km</Text>
+          <Text>Temperatur: {weatherData?.current.temp_c}°C</Text>
+          <Text>Gefühlt: {weatherData?.current.feelslike_c}°C</Text>
+          <Text>Wind: {weatherData?.current.wind_kph} km/h</Text>
           <Text>Windrichtung: {weatherData?.current.wind_dir}</Text>
         </View>
       )}
@@ -83,7 +88,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   icon: {
-    width: 50,
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 70,
     height: 50,
   },
 });
