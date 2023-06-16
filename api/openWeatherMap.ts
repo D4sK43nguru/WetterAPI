@@ -1,15 +1,15 @@
 // import {OPEN_WEATHER_MAP} from "@env"
 import axios from "axios";
-import {current, currentWeather, geocode} from "../utils/url/openWeatherMap";
-import { iWeatherApiRealtime } from "../utils/types/weatherApi";
+import {current, geocode} from "../utils/url/openWeatherMap";
+import {iWeatherApiRealtime} from "../utils/types/weatherApi";
+import {WETTER_API_API_KEY} from "../utils/API_KEYS";
 
 export default async function getWeatherData(
   location: string
 ): Promise<iWeatherApiRealtime> {
-  const api_key = "d11ac692501b4f959cc201338231606";
   const { data } = await axios.get(current, {
     params: {
-      key: api_key,
+      key: WETTER_API_API_KEY,
       q: location,
       aqi: "yes"
     },
@@ -18,7 +18,7 @@ export default async function getWeatherData(
   return data as iWeatherApiRealtime;
 }
 
-export async function getGeoCode(adress: string) {
+export async function getGeoCode(location: string) {
   const api_key = "d11ac692501b4f959cc201338231606";
   const { data }: any = axios
     .get(geocode, {

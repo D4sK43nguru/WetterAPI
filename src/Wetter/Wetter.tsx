@@ -1,9 +1,9 @@
-import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { iWeatherApiRealtime } from "../../utils/types/weatherApi";
-import getWeatherData, { getGeoCode } from "../../api/openWeatherMap";
-import { useDebounce } from "../../utils/hooks/useDebounce";
+import {Button, Image, StyleSheet, Text, TextInput, View} from "react-native";
+import {StatusBar} from "expo-status-bar";
+import React, {useEffect, useState} from "react";
+import {iWeatherApiRealtime} from "../../utils/types/weatherApi";
+import getWeatherData from "../../api/openWeatherMap";
+import {useDebounce} from "../../utils/hooks/useDebounce";
 
 const WetterComponent = () => {
   const [geoLocation, setGeoLocation] = useState<{ lat: number; lng: number }>({
@@ -15,7 +15,7 @@ const WetterComponent = () => {
   const [weatherData, setWeatherData] = useState<iWeatherApiRealtime>();
   const debouncedLocation = useDebounce<string>(location, 100);
 
-  useEffect(() => {
+  const getWetter = () => {
     let active = true;
     fetchData();
     console.log(weatherData);
