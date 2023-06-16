@@ -1,34 +1,25 @@
 // import {OPEN_WEATHER_MAP} from "@env"
 import axios from "axios";
-import { currentWeather, geocode } from "../utils/url/openWeatherMap";
-import { iWeatherApi } from "../utils/types/weatherApi";
+import {current, currentWeather, geocode} from "../utils/url/openWeatherMap";
+import { iWeatherApiRealtime } from "../utils/types/weatherApi";
 
 export default async function getWeatherData(
-  lat: number | undefined,
-  lon: number | undefined,
-  lang = "de",
-  mode?: "xml" | "html",
-  units: "standard" | "metric" | "imperial" = "metric"
-): Promise<iWeatherApi> {
-  const api_key = "9ff30058aa402520f85c841a41a5593c";
-  if (!(lon && lat)) {
-    return {};
-  }
-  const { data } = await axios.get(currentWeather, {
+  location: string
+): Promise<iWeatherApiRealtime> {
+  const api_key = "d11ac692501b4f959cc201338231606";
+  const { data } = await axios.get(current, {
     params: {
-      appId: api_key,
-      lat,
-      lon,
-      lang,
-      units,
+      key: api_key,
+      q: location,
+      aqi: "yes"
     },
   });
   console.log(data);
-  return data as iWeatherApi;
+  return data as iWeatherApiRealtime;
 }
 
 export async function getGeoCode(adress: string) {
-  const api_key = "aec692959cd9436e9c972e9b87baca57";
+  const api_key = "d11ac692501b4f959cc201338231606";
   const { data }: any = axios
     .get(geocode, {
       params: {

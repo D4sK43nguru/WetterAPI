@@ -4,3 +4,7 @@ export const currentWeather = `${openWeatherMap}weather`
 
 export const geoapify = "https://api.geoapify.com"
 export const geocode = `${geoapify}/v1/geocode/search`
+
+export const weatherApi = "https://api.weatherapi.com"
+
+export const current = `${weatherApi}/v1/current.json`
