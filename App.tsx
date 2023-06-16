@@ -1,12 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput } from "react-native";
-import { useEffect, useMemo, useState } from "react";
+import {Button, StyleSheet, View} from "react-native";
+import React, {useState} from "react";
+import WetterComponent from "./src/Wetter/Wetter";
 import React from "react";
 import { iWeatherApi } from "./utils/types/weatherApi";
 import getWeatherData, { getGeoCode } from "./api/openWeatherMap";
 
 export default function App() {
-  const [geoLocation, setGeoLocation] = useState<{ lat: number; lng: number }>({
+  const [mode, setMode] = useState(0);
     lat: 52.0825322,
     lng: 7.0150057,
   });
@@ -53,16 +53,27 @@ export default function App() {
   const WeatherData = <Text>{weatherData?.visibility}</Text>;
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={{ height: 40 }}
-        placeholder={"Hier den Ort eingeben"}
-        onChangeText={(newText) => setLocation(newText)}
-        defaultValue={location}
-      />
+    <>
+    {mode !== 0 && <Button
+        onPress={() => {
+          setMode(0);
+        }}
+        title={"Zurück"}
+      />}
+      {mode == 0 && (
+        <View style={styles.container}>
+          <Button
+            onPress={() => {
+              setMode(1);
+            }}
+            title={"Wetter"}
+          />
       <Text>{WeatherData}</Text>
       <StatusBar style="auto" />
-    </View>
+        </View>
+      )}
+      {mode == 1 && <WetterComponent />}
+    </>
   );
 }
 
