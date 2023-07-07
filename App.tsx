@@ -1,6 +1,7 @@
 import {Button, StyleSheet, View} from "react-native";
 import React, {useState} from "react";
 import WetterComponent from "./src/Wetter/Wetter";
+import { Kamera } from "./src/Kamera/Kamera";
 // import {Kamera} from "./src/Kamera/kamera";
 
 export default function App() {
@@ -22,16 +23,17 @@ export default function App() {
             }}
             title={"Wetter"}
           />
-          {/*<Button*/}
-          {/*  onPress={() => {*/}
-          {/*    setMode(2);*/}
-          {/*  }}*/}
-          {/*  title={"Kamera"}*/}
-          {/*/>*/}
+          <Button
+            onPress={() => {
+              setMode(2);
+            }}
+            title={"Kamera"}
+          />
+
         </View>
       )}
       {mode == 1 && <WetterComponent />}
-      {/*{mode == 2 && <Kamera />}*/}
+      {mode == 2 && <Kamera />}
     </>
   );
 }
