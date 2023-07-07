@@ -182,7 +182,7 @@ export const Kamera = () => {
             style={{
               width: 130,
               borderRadius: 4,
-              backgroundColor: "#14274e",
+              backgroundColor: "#009688",
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
