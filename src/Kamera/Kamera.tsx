@@ -1,27 +1,27 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
   Alert,
   ImageBackground,
-  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { Camera } from "expo-camera";
+import {Camera, FlashMode} from "expo-camera";
+
 let camera: Camera;
 export const Kamera = () => {
   const [startCamera, setStartCamera] = React.useState(false);
   const [previewVisible, setPreviewVisible] = React.useState(false);
   const [capturedImage, setCapturedImage] = React.useState<any>(null);
   const [cameraType, setCameraType] = React.useState(
-    Camera.Constants.Type.back
+    Camera.Constants.Type["back"]
   );
   const [flashMode, setFlashMode] = React.useState("off");
 
   const __startCamera = async () => {
-    const { status } = await Camera.requestPermissionsAsync();
+    const { status } = await Camera.requestCameraPermissionsAsync();
     console.log(status);
     if (status === "granted") {
       setStartCamera(true);
@@ -40,7 +40,7 @@ export const Kamera = () => {
   const __retakePicture = () => {
     setCapturedImage(null);
     setPreviewVisible(false);
-    __startCamera();
+    void __startCamera();
   };
   const __handleFlashMode = () => {
     if (flashMode === "on") {
@@ -76,7 +76,7 @@ export const Kamera = () => {
           ) : (
             <Camera
               type={cameraType}
-              flashMode={flashMode}
+              flashMode={FlashMode[flashMode]}
               style={{ flex: 1 }}
               ref={(r) => {
                 camera = r;
@@ -103,7 +103,7 @@ export const Kamera = () => {
                     onPress={__handleFlashMode}
                     style={{
                       backgroundColor: flashMode === "off" ? "#000" : "#fff",
-                      borderRadius: "50%",
+                      // borderRadius: "auto",
                       height: 25,
                       width: 25,
                     }}
@@ -120,7 +120,7 @@ export const Kamera = () => {
                     onPress={__switchCamera}
                     style={{
                       marginTop: 20,
-                      borderRadius: "50%",
+                      // borderRadius: 'auto',
                       height: 25,
                       width: 25,
                     }}
