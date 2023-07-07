@@ -1,5 +1,5 @@
-import {Button, StyleSheet, View} from "react-native";
-import React, {useState} from "react";
+import { Button, StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import React, { useState } from "react";
 import WetterComponent from "./src/Wetter/Wetter";
 import { Kamera } from "./src/Kamera/Kamera";
 // import {Kamera} from "./src/Kamera/kamera";
@@ -9,12 +9,16 @@ export default function App() {
 
   return (
     <>
-    {mode !== 0 && <Button
-        onPress={() => {
-          setMode(0);
-        }}
-        title={"Zurück"}
-      />}
+      {mode !== 0 && (
+        <TouchableOpacity
+          onPress={() => {
+            setMode(0);
+          }}
+          style={styles.appButtonContainer}
+        >
+          <Text style={styles.appButtonText}>Zurück</Text>
+        </TouchableOpacity>
+      )}
       {mode == 0 && (
         <View style={styles.container}>
           <Button
@@ -44,5 +48,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  appButtonContainer: {
+    height: "8%",
+    elevation: 8,
+    backgroundColor: "#009688",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingTop: "9%",
+
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase",
   },
 });
